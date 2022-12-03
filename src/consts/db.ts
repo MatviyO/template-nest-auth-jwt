@@ -5,7 +5,7 @@ import {ConfigModuleOptions} from "@nestjs/config/dist/interfaces";
 const env = process.env;
 
 export const envCOnfig: ConfigModuleOptions = {
-    envFilePath: `./environment/.${env.NODE_ENV}.env`
+    envFilePath: `../../environment/.${env.NODE_ENV}.env`
 }
 
 export const dbConfig: SequelizeModuleOptions = {
