@@ -7,6 +7,8 @@ import {routes} from "./consts/routes";
 import {UsersModel} from "@/modules/users/users.model";
 import {AllExceptionsFilter} from "@/exeptions/all-exceptions.filter";
 import { RolesModule } from './modules/roles/roles.module';
+import {RolesModel} from "@/modules/roles/roles.model";
+import {UserRoles} from "@/modules/roles/user-role.model";
 
 const env = process.env;
 
@@ -20,7 +22,7 @@ const env = process.env;
           username: env.POSTGRES_USER,
           password: String(env.POSTGRES_PASSWORD),
           database: env.POSTGRES_DB,
-          models: [UsersModel],
+          models: [UsersModel, RolesModel, UserRoles],
           autoLoadModels: true
       }),
       UsersModule,

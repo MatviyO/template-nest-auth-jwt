@@ -4,3 +4,8 @@ export interface IRole {
 }
 
 export interface IRoleCreation extends Pick<IRole, 'type'>{}
+
+export enum Role {
+    USER = "User",
+    ADMIN = "Admin",
+}
