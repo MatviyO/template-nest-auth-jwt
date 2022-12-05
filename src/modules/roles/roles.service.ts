@@ -21,14 +21,14 @@ export class RolesService {
     }
 
     async getAllRoles(): Promise<IRole[]> {
-        return await this.roleRepository.findAll() || null;
+        return await this.roleRepository.findAll({raw: true}) || null;
     }
 
     async getRoleByType(type: string): Promise<IRole | null> {
-        return await this.roleRepository.findOne({ where: { type: type}}) || null;
+        return await this.roleRepository.findOne({ where: { type: type}, raw: true}) || null;
     }
 
     async checkExistingRole(dto: CreateRoleDto): Promise<IRole | null> {
-        return await this.roleRepository.findOne({ where: { type: dto.type}}) || null;
+        return await this.roleRepository.findOne({ where: { type: dto.type}, raw: true}) || null;
     }
 }

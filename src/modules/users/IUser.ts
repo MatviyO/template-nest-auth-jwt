@@ -3,7 +3,6 @@ export interface IUser {
     email: string;
     password: string;
     active: boolean;
-    activateMessage: string;
 }
 
 export interface IUserCreation extends Pick<IUser, 'email' | 'password'>{}

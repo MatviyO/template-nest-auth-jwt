@@ -5,6 +5,7 @@ import {CreateUserDto} from "./dto/create-user.dto";
 import {IUser} from "./IUser";
 import {RolesService} from "@/modules/roles/roles.service";
 import {Role} from "@/modules/roles/IRole";
+import {RolesModel} from "@/modules/roles/roles.model";
 
 @Injectable()
 export class UsersService {
@@ -14,6 +15,7 @@ export class UsersService {
 
     async createUser(dto: CreateUserDto): Promise<IUser> {
         const user = await this.checkExistingUser(dto);
+        console.log(user, 'user')
         if (user) {
             throw new BadRequestException(
                 'Account with this email already exists.',
@@ -26,7 +28,7 @@ export class UsersService {
     }
 
     async getAllUsers(): Promise<IUser[]> {
-        const users = await this.userRepository.findAll<UsersModel>({raw: true})
+        const users = await this.userRepository.findAll<UsersModel>({raw: true,  include: [RolesModel],})
         return users || [];
     }
 

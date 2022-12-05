@@ -44,13 +44,6 @@ export class UsersModel extends Model<IUser, CreateUserDto> {
     })
     active: boolean;
 
-    @IsString()
-    @ApiProperty()
-    @Column( {
-        type: DataType.STRING, defaultValue: ''
-    })
-    activateMessage: string;
-
     @BelongsToMany(() => RolesModel, () => UserRoles)
     roles: IRole[]
 }
