@@ -1,13 +1,13 @@
 import {BadRequestException, Injectable} from '@nestjs/common';
 import {InjectModel} from "@nestjs/sequelize";
-import {RolesModel} from "@/modules/roles/roles.model";
+import {Roles} from "@/modules/roles/roles.model";
 import {CreateRoleDto} from "@/modules/roles/dto/create-role.dto";
 import {IRole} from "@/modules/roles/IRole";
 
 @Injectable()
 export class RolesService {
 
-    constructor(@InjectModel(RolesModel) private roleRepository: typeof RolesModel) {
+    constructor(@InjectModel(Roles) private roleRepository: typeof Roles) {
     }
 
     async createRole(dto: CreateRoleDto): Promise<IRole> {

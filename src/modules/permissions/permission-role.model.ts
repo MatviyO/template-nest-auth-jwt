@@ -1,10 +1,10 @@
-import {Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
+import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {ApiProperty} from "@nestjs/swagger";
 import {Roles} from "@/modules/roles/roles.model";
 import {Users} from "@/modules/users/users.model";
 
-@Table({tableName: 'user_roles', createdAt: false, updatedAt: false})
-export class UserRoles extends Model<UserRoles> {
+@Table({tableName: 'permissions_role', createdAt: false, updatedAt: false})
+export class PermissionRole extends Model<PermissionRole> {
     @ApiProperty()
     @Column( {
         type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true
@@ -16,12 +16,15 @@ export class UserRoles extends Model<UserRoles> {
     @Column( {
         type: DataType.INTEGER,
     })
-    roleId: number;
+    permission_id: number;
 
     @ForeignKey(() => Users)
     @ApiProperty()
     @Column( {
         type: DataType.INTEGER,
     })
-    userId: number;
+    role_id: string;
+
+    @BelongsTo(() => Roles)
+    role: Roles;
 }

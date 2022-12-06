@@ -2,7 +2,7 @@ import {Body, ClassSerializerInterceptor, Controller, Get, Post, UseInterceptors
 import {CreateUserDto} from "@/modules/users/dto/create-user.dto";
 import {UsersService} from "@/modules/users/users.service";
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
-import {UsersModel} from "@/modules/users/users.model";
+import {Users} from "@/modules/users/users.model";
 
 @ApiTags('Users')
 @Controller('users')
@@ -11,14 +11,14 @@ export class UsersController {
     }
 
     @ApiOperation({summary: 'Creation User'})
-    @ApiResponse({status: 201, type: UsersModel})
+    @ApiResponse({status: 201, type: Users})
     @Post()
     create(@Body() userDto: CreateUserDto) {
         return this.usersService.createUser(userDto);
     }
 
     @ApiOperation({summary: 'Get Users'})
-    @ApiResponse({status: 200, type: [UsersModel]})
+    @ApiResponse({status: 200, type: [Users]})
     @UseInterceptors(ClassSerializerInterceptor)
     @Get()
     getAll() {

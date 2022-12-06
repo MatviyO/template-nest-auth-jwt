@@ -4,11 +4,14 @@ import {ConfigModule} from "@nestjs/config";
 import {UsersModule} from "./modules/users/users.module";
 import {APP_FILTER, APP_PIPE, RouterModule} from "@nestjs/core";
 import {routes} from "./consts/routes";
-import {UsersModel} from "@/modules/users/users.model";
+import {Users} from "@/modules/users/users.model";
 import {AllExceptionsFilter} from "@/exeptions/all-exceptions.filter";
 import { RolesModule } from './modules/roles/roles.module';
-import {RolesModel} from "@/modules/roles/roles.model";
+import {Roles} from "@/modules/roles/roles.model";
 import {UserRoles} from "@/modules/roles/user-role.model";
+import {Permission} from "@/modules/permissions/permissions.model";
+import {PermissionRole} from "@/modules/permissions/permission-role.model";
+import {PermissionsModule} from "@/modules/permissions/permissions.module";
 
 const env = process.env;
 
@@ -22,13 +25,14 @@ const env = process.env;
           username: env.POSTGRES_USER,
           password: String(env.POSTGRES_PASSWORD),
           database: env.POSTGRES_DB,
-          models: [UsersModel, RolesModel, UserRoles],
+          models: [Users, Roles, UserRoles, Permission, PermissionRole],
           autoLoadModels: true
       }),
       UsersModule,
       RolesModule,
-      RouterModule.register(routes),
       RolesModule,
+      PermissionsModule,
+      RouterModule.register(routes),
   ],
   controllers: [],
   providers: [

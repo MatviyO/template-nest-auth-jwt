@@ -3,13 +3,13 @@ import {IUser} from "./IUser";
 import {ApiProperty} from "@nestjs/swagger";
 import {IsBoolean, IsEmail, IsNotEmpty, IsString} from "@nestjs/class-validator";
 import {Exclude, Transform, TransformFnParams} from "@nestjs/class-transformer";
-import {RolesModel} from "@/modules/roles/roles.model";
+import {Roles} from "@/modules/roles/roles.model";
 import {IRole} from "@/modules/roles/IRole";
 import {UserRoles} from "@/modules/roles/user-role.model";
 import {CreateUserDto} from "@/modules/users/dto/create-user.dto";
 
 @Table({tableName: 'users'})
-export class UsersModel extends Model<IUser, CreateUserDto> {
+export class Users extends Model<IUser, CreateUserDto> {
     @ApiProperty()
     @Column( {
         type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true
@@ -44,6 +44,6 @@ export class UsersModel extends Model<IUser, CreateUserDto> {
     })
     active: boolean;
 
-    @BelongsToMany(() => RolesModel, () => UserRoles)
+    @BelongsToMany(() => Roles, () => UserRoles)
     roles: IRole[]
 }

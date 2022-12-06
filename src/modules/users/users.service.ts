@@ -1,15 +1,15 @@
 import {BadRequestException, Injectable} from '@nestjs/common';
-import {UsersModel} from "./users.model";
+import {Users} from "./users.model";
 import {InjectModel} from "@nestjs/sequelize";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {IUser} from "./IUser";
 import {RolesService} from "@/modules/roles/roles.service";
 import {Role} from "@/modules/roles/IRole";
-import {RolesModel} from "@/modules/roles/roles.model";
+import {Roles} from "@/modules/roles/roles.model";
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectModel(UsersModel) private userRepository: typeof UsersModel,
+    constructor(@InjectModel(Users) private userRepository: typeof Users,
                 private rolesService: RolesService) {
     }
 
@@ -28,11 +28,11 @@ export class UsersService {
     }
 
     async getAllUsers(): Promise<IUser[]> {
-        const users = await this.userRepository.findAll<UsersModel>({raw: true,  include: [RolesModel],})
+        const users = await this.userRepository.findAll<Users>({raw: true,  include: {all: true}})
         return users || [];
     }
 
-    async checkExistingUser(dto: CreateUserDto): Promise<UsersModel | null> {
+    async checkExistingUser(dto: CreateUserDto): Promise<Users | null> {
         return await this.userRepository.findOne({ where: { email: dto.email}}) || null;
     }
 }
