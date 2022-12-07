@@ -25,7 +25,7 @@ export class Roles extends Model<IRole, IRoleCreation> {
     @Column( {
         type: DataType.STRING, unique: true, allowNull: false
     })
-    type: string;
+    name: string;
 
     @BelongsToMany(() => Users, () => UserRoles)
     users: IUser[]

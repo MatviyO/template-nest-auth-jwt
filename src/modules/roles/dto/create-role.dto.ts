@@ -8,5 +8,5 @@ export class CreateRoleDto implements IRoleCreation {
     @IsString()
     @IsNotEmpty()
     @Transform(({ value }: TransformFnParams) => value?.trim())
-    readonly type: string;
+    readonly name: string;
 }

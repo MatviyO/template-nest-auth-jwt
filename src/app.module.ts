@@ -12,9 +12,9 @@ import {UserRoles} from "@/modules/roles/user-role.model";
 import {Permission} from "@/modules/permissions/permissions.model";
 import {PermissionRole} from "@/modules/permissions/permission-role.model";
 import {PermissionsModule} from "@/modules/permissions/permissions.module";
-import { AuthService } from './auth/auth.service';
-import { AuthController } from './auth/auth.controller';
-import { AuthModule } from './auth/auth.module';
+import { AuthService } from './modules/auth/auth.service';
+import { AuthController } from './modules/auth/auth.controller';
+import { AuthModule } from './modules/auth/auth.module';
 
 const env = process.env;
 

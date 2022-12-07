@@ -2,10 +2,10 @@ import {BadRequestException, Injectable} from '@nestjs/common';
 import {InjectModel} from "@nestjs/sequelize";
 import {Roles} from "@/modules/roles/roles.model";
 import {CreateRoleDto} from "@/modules/roles/dto/create-role.dto";
-import {IRole} from "@/modules/roles/IRole";
+import {IRole, IRoleService} from "@/modules/roles/IRole";
 
 @Injectable()
-export class RolesService {
+export class RolesService implements IRoleService{
 
     constructor(@InjectModel(Roles) private roleRepository: typeof Roles) {
     }
@@ -24,11 +24,11 @@ export class RolesService {
         return await this.roleRepository.findAll({raw: true}) || null;
     }
 
-    async getRoleByType(type: string): Promise<IRole | null> {
-        return await this.roleRepository.findOne({ where: { type: type}, raw: true}) || null;
+    async getRoleByName(name: string): Promise<IRole | null> {
+        return await this.roleRepository.findOne({ where: { name: name}, raw: true}) || null;
     }
 
     async checkExistingRole(dto: CreateRoleDto): Promise<IRole | null> {
-        return await this.roleRepository.findOne({ where: { type: dto.type}, raw: true}) || null;
+        return await this.roleRepository.findOne({ where: { name: dto.name}, raw: true}) || null;
     }
 }

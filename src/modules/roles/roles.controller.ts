@@ -24,8 +24,8 @@ export class RolesController {
     }
 
     @ApiResponse({status: 200, type: Roles})
-    @Get('/:type')
-    getByType(@Param('type') type: string) {
-        return this.rolesService.getRoleByType(type);
+    @Get('/:name')
+    getByName(@Param('name') name: string) {
+        return this.rolesService.getRoleByName(name);
     }
 }
