@@ -30,6 +30,6 @@ export class Roles extends Model<IRole, IRoleCreation> {
     @BelongsToMany(() => Users, () => UserRoles)
     users: IUser[]
 
-    @BelongsToMany(() => Permission, () => PermissionRole)
+    @BelongsToMany(() => Permission, () => PermissionRole, "permission_id", "role_id")
     permissions: IPermission[];
 }

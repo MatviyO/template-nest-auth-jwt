@@ -12,6 +12,9 @@ import {UserRoles} from "@/modules/roles/user-role.model";
 import {Permission} from "@/modules/permissions/permissions.model";
 import {PermissionRole} from "@/modules/permissions/permission-role.model";
 import {PermissionsModule} from "@/modules/permissions/permissions.module";
+import { AuthService } from './auth/auth.service';
+import { AuthController } from './auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
 
 const env = process.env;
 
@@ -33,8 +36,9 @@ const env = process.env;
       RolesModule,
       PermissionsModule,
       RouterModule.register(routes),
+      AuthModule,
   ],
-  controllers: [],
+  controllers: [AuthController],
   providers: [
       {
           provide: APP_PIPE,
@@ -44,6 +48,7 @@ const env = process.env;
           provide: APP_FILTER,
           useClass: AllExceptionsFilter,
       },
+      AuthService,
   ],
 })
 export class AppModule {}
