@@ -2,7 +2,6 @@ import {IUserCreation} from "../IUser";
 import {ApiProperty} from "@nestjs/swagger";
 import {IsEmail, IsNotEmpty, IsString} from "@nestjs/class-validator";
 import {Transform, TransformFnParams} from "@nestjs/class-transformer";
-import {IRole} from "@/modules/roles/IRole";
 
 export class CreateUserDbDto implements IUserCreation {
     @ApiProperty()
@@ -21,5 +20,5 @@ export class CreateUserDbDto implements IUserCreation {
     @IsNotEmpty()
     @ApiProperty()
     @Transform(({ value }: TransformFnParams) => value?.trim())
-    readonly roles: number[];
+    readonly Role: number[];
 }

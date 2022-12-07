@@ -2,16 +2,12 @@ import {BelongsToMany, Column, DataType, Model, Table} from "sequelize-typescrip
 import {ApiProperty} from "@nestjs/swagger";
 import {IsNotEmpty, IsString} from "@nestjs/class-validator";
 import {Transform, TransformFnParams} from "@nestjs/class-transformer";
-import {IRole, IRoleCreation} from "@/modules/roles/IRole";
-import {Users} from "@/modules/users/users.model";
-import {IUser} from "@/modules/users/IUser";
-import {UserRoles} from "@/modules/roles/user-role.model";
-import {IPermission} from "@/modules/permissions/IPermission";
-import {Permission} from "@/modules/permissions/permissions.model";
+import {CreatePermissionDto} from "@/modules/permissions/dto/create-permission.dto";
 import {PermissionRole} from "@/modules/permissions/permission-role.model";
+import { Role } from "../roles/role.model";
 
-@Table({tableName: 'roles'})
-export class Roles extends Model<IRole, IRoleCreation> {
+@Table({tableName: 'permissions'})
+export class Permission extends Model<Permission, CreatePermissionDto> {
     @ApiProperty()
     @Column( {
         type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true
@@ -27,9 +23,6 @@ export class Roles extends Model<IRole, IRoleCreation> {
     })
     name: string;
 
-    @BelongsToMany(() => Users, () => UserRoles)
-    users: IUser[]
-
-    @BelongsToMany(() => Permission, () => PermissionRole, "permission_id", "role_id")
-    permissions: IPermission[];
+    @BelongsToMany(() => Role, () => PermissionRole)
+    Role: Role[];
 }

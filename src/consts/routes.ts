@@ -1,15 +1,15 @@
-import {UsersModule} from "@/modules/users/users.module";
-import {RolesModule} from "@/modules/roles/roles.module";
+import {UserModule} from "@/modules/User/User.module";
+import {RoleModule} from "@/modules/Role/Role.module";
 import {PermissionsModule} from "@/modules/permissions/permissions.module";
 
 export const routes = [
     {
     path: '',
-    module: UsersModule,
+    module: UserModule,
     },
     {
         path: '',
-        module: RolesModule,
+        module: RoleModule,
     },
     {
         path: '',

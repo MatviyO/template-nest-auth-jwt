@@ -1,4 +1,4 @@
-import {CreateRoleDto} from "@/modules/roles/dto/create-role.dto";
+import { CreateRoleDto } from '@/modules/roles/dto/create-role.dto';
 
 export interface IRole {
     id: number;
@@ -7,14 +7,14 @@ export interface IRole {
 
 export interface IRoleCreation extends Pick<IRole, 'name'>{}
 
-export enum Role {
+export enum Roles {
     USER = "User",
     ADMIN = "Admin",
 }
 
-export interface IRoleService {
+export interface IRolesService {
     createRole: (userDto: CreateRoleDto) => Promise<IRole>
-    getAllRoles: () => Promise<IRole[] | null>
+    getAllRole: () => Promise<IRole[] | null>
     getRoleByName: (value: string) => Promise<IRole>
     checkExistingRole: (userDto: CreateRoleDto) => Promise<IRole>
 }

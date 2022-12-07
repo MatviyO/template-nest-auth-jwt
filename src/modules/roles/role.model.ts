@@ -3,13 +3,14 @@ import {ApiProperty} from "@nestjs/swagger";
 import {IsNotEmpty, IsString} from "@nestjs/class-validator";
 import {Transform, TransformFnParams} from "@nestjs/class-transformer";
 import {IPermission} from "@/modules/permissions/IPermission";
-import {CreatePermissionDto} from "@/modules/permissions/dto/create-permission.dto";
-import {IRole} from "@/modules/roles/IRole";
-import {Roles} from "@/modules/roles/roles.model";
 import {PermissionRole} from "@/modules/permissions/permission-role.model";
+import { UserRole } from '@/modules/roles/user-role.model';
+import { IRoleCreation } from '@/modules/roles/IRole';
+import { User } from "../users/user.model";
+import { Permission } from '@/modules/permissions/permission.model';
 
-@Table({tableName: 'permissions'})
-export class Permission extends Model<IPermission, CreatePermissionDto> {
+@Table({tableName: 'Role'})
+export class Role extends Model<Role, IRoleCreation> {
     @ApiProperty()
     @Column( {
         type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true
@@ -25,6 +26,9 @@ export class Permission extends Model<IPermission, CreatePermissionDto> {
     })
     name: string;
 
-    @BelongsToMany(() => Roles, () => PermissionRole)
-    roles: IRole[];
+    @BelongsToMany(() => User, () => UserRole)
+    User: User[]
+
+    @BelongsToMany(() => Permission, () => PermissionRole, "permission_id", "role_id")
+    permissions: IPermission[];
 }

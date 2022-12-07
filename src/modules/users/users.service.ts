@@ -1,20 +1,18 @@
 import {BadRequestException, Injectable} from '@nestjs/common';
-import {Users} from "./users.model";
+import {User} from "./User.model";
 import {InjectModel} from "@nestjs/sequelize";
 import {CreateUserDto} from "./dto/create-user.dto";
-import {IUser} from "./IUser";
-import {RolesService} from "@/modules/roles/roles.service";
-import {Role} from "@/modules/roles/IRole";
-import {Roles} from "@/modules/roles/roles.model";
+import { RolesService } from '@/modules/roles/roles.service';
+import { Roles } from '@/modules/roles/IRole';
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectModel(Users) private userRepository: typeof Users,
+    constructor(@InjectModel(User) private userRepository: typeof User,
                 private rolesService: RolesService) {
     }
 
-    async createUser(dto: CreateUserDto): Promise<IUser> {
-        const user = await this.checkExistingUser(dto);
+    async createUser(dto: CreateUserDto): Promise<User> {
+        const user = await this.getUserByEmail(dto.email);
         console.log(user, 'user')
         if (user) {
             throw new BadRequestException(
@@ -22,17 +20,17 @@ export class UsersService {
             );
         }
         const newUser = await this.userRepository.create(dto);
-        const role = await this.rolesService.getRoleByType(Role.USER)
+        const role = await this.rolesService.getRoleByName(Roles.USER)
         await newUser.$set('roles', [role.id])
         return newUser;
     }
 
-    async getAllUsers(): Promise<IUser[]> {
-        const users = await this.userRepository.findAll<Users>({raw: true,  include: {all: true}})
-        return users || [];
+    async getAllUser(): Promise<User[]> {
+        const User = await this.userRepository.findAll<User>({raw: true,  include: {all: true}})
+        return User || [];
     }
 
-    async checkExistingUser(dto: CreateUserDto): Promise<Users | null> {
-        return await this.userRepository.findOne({ where: { email: dto.email}}) || null;
+    async getUserByEmail(email: string): Promise<User | null> {
+        return await this.userRepository.findOne({ where: { email}, include: {all: true}}) || null;
     }
 }

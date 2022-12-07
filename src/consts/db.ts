@@ -1,4 +1,4 @@
-import {Users} from "../modules/users/users.model";
+import {User} from "../modules/User/User.model";
 import {SequelizeModuleOptions} from "@nestjs/sequelize/dist/interfaces/sequelize-options.interface";
 import {ConfigModuleOptions} from "@nestjs/config/dist/interfaces";
 
@@ -15,6 +15,6 @@ export const dbConfig: SequelizeModuleOptions = {
     username: env.POSTGRES_USER,
     password: String(env.POSTGRES_PASSWORD),
     database: env.POSTGRES_DB,
-    models: [Users],
+    models: [User],
     autoLoadModels: true
 }

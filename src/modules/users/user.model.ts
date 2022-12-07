@@ -1,15 +1,14 @@
 import {BelongsToMany, Column, DataType, Model, Table} from "sequelize-typescript";
-import {IUser} from "./IUser";
 import {ApiProperty} from "@nestjs/swagger";
 import {IsBoolean, IsEmail, IsNotEmpty, IsString} from "@nestjs/class-validator";
 import {Exclude, Transform, TransformFnParams} from "@nestjs/class-transformer";
-import {Roles} from "@/modules/roles/roles.model";
-import {IRole} from "@/modules/roles/IRole";
-import {UserRoles} from "@/modules/roles/user-role.model";
-import {CreateUserDto} from "@/modules/users/dto/create-user.dto";
 
-@Table({tableName: 'users'})
-export class Users extends Model<IUser, CreateUserDto> {
+import { CreateUserDto } from '@/modules/users/dto/create-user.dto';
+import { UserRole } from '@/modules/roles/user-role.model';
+import { Role } from "../roles/role.model";
+
+@Table({tableName: 'User'})
+export class User extends Model<User, CreateUserDto> {
     @ApiProperty()
     @Column( {
         type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true
@@ -44,6 +43,6 @@ export class Users extends Model<IUser, CreateUserDto> {
     })
     active: boolean;
 
-    @BelongsToMany(() => Roles, () => UserRoles)
-    roles: IRole[]
+    @BelongsToMany(() => Role, () => UserRole)
+    roles: Role[]
 }

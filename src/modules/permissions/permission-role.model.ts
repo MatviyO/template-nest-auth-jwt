@@ -1,7 +1,7 @@
 import {BelongsTo, Column, DataType, ForeignKey, Model, Table} from "sequelize-typescript";
 import {ApiProperty} from "@nestjs/swagger";
-import {Roles} from "@/modules/roles/roles.model";
-import {Permission} from "@/modules/permissions/permissions.model";
+import { Role } from '@/modules/roles/role.model';
+import { Permission } from '@/modules/permissions/permission.model';
 
 @Table({tableName: 'permissions_role', createdAt: false, updatedAt: false})
 export class PermissionRole extends Model<PermissionRole> {
@@ -18,13 +18,13 @@ export class PermissionRole extends Model<PermissionRole> {
     })
     permission_id: number;
 
-    @ForeignKey(() => Roles)
+    @ForeignKey(() => Role)
     @ApiProperty()
     @Column( {
         type: DataType.INTEGER,
     })
     role_id: string;
 
-    @BelongsTo(() => Roles)
-    role: Roles;
+    @BelongsTo(() => Role)
+    role: Role;
 }
