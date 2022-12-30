@@ -1,6 +1,6 @@
-import {User} from "../modules/User/User.model";
 import {SequelizeModuleOptions} from "@nestjs/sequelize/dist/interfaces/sequelize-options.interface";
 import {ConfigModuleOptions} from "@nestjs/config/dist/interfaces";
+import { User } from '@/modules/users/user.model';
 
 const env = process.env;
 

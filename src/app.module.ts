@@ -15,6 +15,7 @@ import { RolesModule } from '@/modules/roles/roles.module';
 import { Permission } from '@/modules/permissions/permission.model';
 import { Role } from '@/modules/roles/role.model';
 import { User } from '@/modules/users/user.model';
+import { JwtModule } from '@nestjs/jwt';
 
 const env = process.env;
 
@@ -36,6 +37,7 @@ const env = process.env;
       PermissionsModule,
       RouterModule.register(routes),
       AuthModule,
+      JwtModule
   ],
   controllers: [AuthController],
   providers: [

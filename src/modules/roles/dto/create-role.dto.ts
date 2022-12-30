@@ -1,7 +1,7 @@
 import {ApiProperty} from "@nestjs/swagger";
 import {IsNotEmpty, IsString} from "@nestjs/class-validator";
 import {Transform, TransformFnParams} from "@nestjs/class-transformer";
-import {IRoleCreation} from "@/modules/Role/IRole";
+import { IRoleCreation } from '@/modules/roles/IRole';
 
 export class CreateRoleDto implements IRoleCreation {
     @ApiProperty()

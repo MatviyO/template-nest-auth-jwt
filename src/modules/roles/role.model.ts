@@ -9,7 +9,7 @@ import { IRoleCreation } from '@/modules/roles/IRole';
 import { User } from "../users/user.model";
 import { Permission } from '@/modules/permissions/permission.model';
 
-@Table({tableName: 'Role'})
+@Table({tableName: 'Roles'})
 export class Role extends Model<Role, IRoleCreation> {
     @ApiProperty()
     @Column( {
@@ -27,7 +27,7 @@ export class Role extends Model<Role, IRoleCreation> {
     name: string;
 
     @BelongsToMany(() => User, () => UserRole)
-    User: User[]
+    users: User[]
 
     @BelongsToMany(() => Permission, () => PermissionRole, "permission_id", "role_id")
     permissions: IPermission[];

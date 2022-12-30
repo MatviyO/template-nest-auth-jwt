@@ -4,7 +4,7 @@ import { Role } from '@/modules/roles/role.model';
 import { User } from '@/modules/users/user.model';
 
 
-@Table({tableName: 'user_Role', createdAt: false, updatedAt: false})
+@Table({tableName: 'User_Role', createdAt: false, updatedAt: false})
 export class UserRole extends Model<UserRole> {
     @ApiProperty()
     @Column( {

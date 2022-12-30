@@ -17,7 +17,7 @@ export class UsersController {
         return this.usersService.createUser(userDto);
     }
 
-    @ApiOperation({summary: 'Get User'})
+    @ApiOperation({summary: 'Get Users'})
     @ApiResponse({status: 200, type: [User]})
     @UseInterceptors(ClassSerializerInterceptor)
     @Get()

@@ -25,7 +25,7 @@ export class RolesService implements IRolesService{
     }
 
     async getRoleByName(name: string): Promise<Role | null> {
-        return await this.roleRepository.findOne({ where: { name: name}, raw: true}) || null;
+        return await this.roleRepository.findOne({ where: { name: name}}) || null;
     }
 
     async checkExistingRole(dto: CreateRoleDto): Promise<Role | null> {

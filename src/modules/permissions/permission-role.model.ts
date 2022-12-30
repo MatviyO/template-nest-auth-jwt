@@ -3,7 +3,7 @@ import {ApiProperty} from "@nestjs/swagger";
 import { Role } from '@/modules/roles/role.model';
 import { Permission } from '@/modules/permissions/permission.model';
 
-@Table({tableName: 'permissions_role', createdAt: false, updatedAt: false})
+@Table({tableName: 'Permissions_Role', createdAt: false, updatedAt: false})
 export class PermissionRole extends Model<PermissionRole> {
     @ApiProperty()
     @Column( {

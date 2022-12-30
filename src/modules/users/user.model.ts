@@ -7,7 +7,7 @@ import { CreateUserDto } from '@/modules/users/dto/create-user.dto';
 import { UserRole } from '@/modules/roles/user-role.model';
 import { Role } from "../roles/role.model";
 
-@Table({tableName: 'User'})
+@Table({tableName: 'Users'})
 export class User extends Model<User, CreateUserDto> {
     @ApiProperty()
     @Column( {

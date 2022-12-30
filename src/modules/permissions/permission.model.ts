@@ -6,7 +6,7 @@ import {CreatePermissionDto} from "@/modules/permissions/dto/create-permission.d
 import {PermissionRole} from "@/modules/permissions/permission-role.model";
 import { Role } from "../roles/role.model";
 
-@Table({tableName: 'permissions'})
+@Table({tableName: 'Permissions'})
 export class Permission extends Model<Permission, CreatePermissionDto> {
     @ApiProperty()
     @Column( {

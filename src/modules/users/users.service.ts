@@ -13,7 +13,6 @@ export class UsersService {
 
     async createUser(dto: CreateUserDto): Promise<User> {
         const user = await this.getUserByEmail(dto.email);
-        console.log(user, 'user')
         if (user) {
             throw new BadRequestException(
                 'Account with this email already exists.',
@@ -21,7 +20,10 @@ export class UsersService {
         }
         const newUser = await this.userRepository.create(dto);
         const role = await this.rolesService.getRoleByName(Roles.USER)
-        await newUser.$set('roles', [role.id])
+        if (role) {
+            await newUser.$set('roles', [role.id])
+            newUser.roles = [role]
+        }
         return newUser;
     }
 

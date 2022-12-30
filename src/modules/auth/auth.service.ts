@@ -29,6 +29,7 @@ export class AuthService implements IAuthService{
 
     async generateToken(user: User) {
         const payload = {email: user.email, id: user.id, roles: user.roles}
+        return {token: this.jwtService.sign(payload)}
     }
 
 }
