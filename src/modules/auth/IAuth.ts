@@ -4,3 +4,7 @@ export interface IAuthService {
     login: (userDto: CreateUserDto) => Promise<any>
     registration: (userDto: CreateUserDto) => Promise<any>
 }
+
+export interface IAuthentification {
+    token: string;
+}

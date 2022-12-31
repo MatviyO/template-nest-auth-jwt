@@ -28,7 +28,7 @@ export class UsersService {
     }
 
     async getAllUser(): Promise<User[]> {
-        const User = await this.userRepository.findAll<User>({raw: true,  include: {all: true}})
+        const User = await this.userRepository.findAll<User>({raw: true,  include: {all: true, foreignKey: "roles"},})
         return User || [];
     }
 

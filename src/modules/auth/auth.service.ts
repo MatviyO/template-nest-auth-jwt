@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import {IAuthService} from "@/modules/auth/IAuth";
+import { IAuthentification, IAuthService } from '@/modules/auth/IAuth';
 import {JwtService} from "@nestjs/jwt";
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto } from '@/modules/users/dto/create-user.dto';
@@ -15,7 +15,7 @@ export class AuthService implements IAuthService{
         return Promise.resolve(undefined);
     }
 
-    async registration(userDto: CreateUserDto): Promise<any> {
+    async registration(userDto: CreateUserDto): Promise<IAuthentification> {
         const candidate = await this.usersService.getUserByEmail(userDto.email);
         if (candidate) {
             throw new BadRequestException(
@@ -24,12 +24,11 @@ export class AuthService implements IAuthService{
         }
         const hashPassword = await bcrypt.hash(userDto.password, 5);
         const user = await this.usersService.createUser({...userDto, password: hashPassword});
-        return Promise.resolve(undefined);
+        return this.generateToken(user);
     }
 
-    async generateToken(user: User) {
+    async generateToken(user: User): Promise<IAuthentification> {
         const payload = {email: user.email, id: user.id, roles: user.roles}
         return {token: this.jwtService.sign(payload)}
     }
-
 }
