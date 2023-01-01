@@ -7,11 +7,12 @@ import { Role } from '@/modules/roles/role.model';
 import { User } from '@/modules/users/user.model';
 import { UserRole } from '@/modules/roles/user-role.model';
 import { Permission } from '@/modules/permissions/permission.model';
+import { RolesGuard } from '@/modules/roles/roles.guard';
 
 @Module({
   controllers: [RolesController],
-  providers: [RolesService],
+  providers: [RolesService, RolesGuard],
   imports: [SequelizeModule.forFeature([Role, User, UserRole, Permission, PermissionRole])],
-  exports: [RolesService]
+  exports: [RolesService, RolesGuard]
 })
 export class RolesModule {}

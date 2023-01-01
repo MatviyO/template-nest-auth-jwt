@@ -1,8 +1,9 @@
-import {Body, ClassSerializerInterceptor, Controller, Get, Post, UseInterceptors} from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Get, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
 import { CreateUserDto } from '@/modules/users/dto/create-user.dto';
 import { UsersService } from '@/modules/users/users.service';
 import { User } from '@/modules/users/user.model';
+import { JwtAuthGuard } from '@/modules/auth/jwt-auth-guard';
 
 @ApiTags('Users')
 @Controller('Users')
@@ -20,6 +21,7 @@ export class UsersController {
     @ApiOperation({summary: 'Get Users'})
     @ApiResponse({status: 200, type: [User]})
     @UseInterceptors(ClassSerializerInterceptor)
+    @UseGuards(JwtAuthGuard)
     @Get()
     getAll() {
         return this.usersService.getAllUser();
