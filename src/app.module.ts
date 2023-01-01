@@ -16,12 +16,17 @@ import { Permission } from '@/modules/permissions/permission.model';
 import { Role } from '@/modules/roles/role.model';
 import { User } from '@/modules/users/user.model';
 import { JwtModule } from '@nestjs/jwt';
+import {ServeStaticModule} from "@nestjs/serve-static";
+import * as path from 'path';
 
 const env = process.env;
 
 @Module({
   imports: [
       ConfigModule.forRoot({envFilePath: `./environment/.${env.NODE_ENV}.env`}),
+      ServeStaticModule.forRoot({
+          rootPath: path.resolve( __dirname, 'static'),
+      }),
       SequelizeModule.forRoot({
           dialect: 'postgres',
           host: env.POSTGRES_HOST,
