@@ -4,6 +4,9 @@ import {InjectModel} from "@nestjs/sequelize";
 import {CreateUserDto} from "./dto/create-user.dto";
 import { RolesService } from '@/modules/roles/roles.service';
 import { Roles } from '@/modules/roles/IRole';
+import { AddRoleDto } from '@/modules/users/dto/add-role.dto';
+import { BanUserDto } from '@/modules/users/dto/ban-user.dto';
+import { MESSAGE } from '@/consts/message';
 
 @Injectable()
 export class UsersService {
@@ -34,5 +37,30 @@ export class UsersService {
 
     async getUserByEmail(email: string): Promise<User | null> {
         return await this.userRepository.findOne({ where: { email}, include: {all: true}}) || null;
+    }
+
+    async addRole(dto: AddRoleDto) {
+        const user = await this.userRepository.findByPk(dto.userId);
+        if (!user) {
+            throw new BadRequestException({ message: MESSAGE.haventUser})
+        }
+        const role = await this.rolesService.getRoleByName(dto.value);
+        if (!role) {
+            throw new BadRequestException({ message: MESSAGE.haventRole})
+        }
+        if (role && user) {
+            await user.$add('roles', role.id)
+            return dto;
+        }
+    }
+
+    async banRole(dto: BanUserDto) {
+        const user = await this.userRepository.findByPk(dto.userId);
+        if (!user) {
+            throw new BadRequestException({ message: MESSAGE.haventUser})
+        }
+        user.active = true;
+        await user.save();
+        return user;
     }
 }

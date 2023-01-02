@@ -7,7 +7,7 @@ import { JwtAuthGuard } from '@/modules/auth/jwt-auth-guard';
 
 @Module({
     controllers: [AuthController],
-    providers: [AuthService, JwtAuthGuard],
+    providers: [AuthService],
     imports: [
         forwardRef(() => UsersModule),
         JwtModule.register({
@@ -16,7 +16,7 @@ import { JwtAuthGuard } from '@/modules/auth/jwt-auth-guard';
             expiresIn: '24h'
         }
     })],
-    exports: [JwtAuthGuard]
+    exports: [AuthService, JwtModule]
 })
 export class AuthModule {
 
