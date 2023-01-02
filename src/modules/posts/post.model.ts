@@ -1,8 +1,8 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from '@nestjs/class-validator';
-import { Transform, TransformFnParams } from '@nestjs/class-transformer';
 import { IPost, IPostCreationAttr } from '@/modules/posts/IPost';
+import { User } from '@/modules/users/user.model';
 
 
 @Table({tableName: 'Posts'})
@@ -16,9 +16,30 @@ export class Post extends Model<IPost, IPostCreationAttr>{
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  @Transform(({ value }: TransformFnParams) => value?.trim())
   @Column( {
-    type: DataType.STRING, unique: true, allowNull: false
+    type: DataType.STRING, allowNull: false
   })
-  name: string;
+  title: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  @Column( {
+    type: DataType.STRING,
+  })
+  content: string;
+
+  @Column( {
+    type: DataType.STRING,
+  })
+  image: string;
+
+  @ForeignKey(() => User)
+  @Column( {
+    type: DataType.INTEGER,
+  })
+  userId: number;
+
+  @BelongsTo(() => User)
+  author: User;
 }

@@ -1,4 +1,4 @@
-import {BelongsToMany, Column, DataType, Model, Table} from "sequelize-typescript";
+import { BelongsToMany, Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import {ApiProperty} from "@nestjs/swagger";
 import {IsBoolean, IsEmail, IsNotEmpty, IsString} from "@nestjs/class-validator";
 import {Exclude, Transform, TransformFnParams} from "@nestjs/class-transformer";
@@ -6,6 +6,7 @@ import {Exclude, Transform, TransformFnParams} from "@nestjs/class-transformer";
 import { CreateUserDto } from '@/modules/users/dto/create-user.dto';
 import { UserRole } from '@/modules/roles/user-role.model';
 import { Role } from "../roles/role.model";
+import { Post } from '@/modules/posts/post.model';
 
 @Table({tableName: 'Users'})
 export class User extends Model<User, CreateUserDto> {
@@ -45,4 +46,7 @@ export class User extends Model<User, CreateUserDto> {
 
     @BelongsToMany(() => Role, () => UserRole)
     roles: Role[]
+
+    @HasMany(() => Post)
+    posts: Post[]
 }

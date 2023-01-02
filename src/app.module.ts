@@ -19,6 +19,7 @@ import { JwtModule } from '@nestjs/jwt';
 import {ServeStaticModule} from "@nestjs/serve-static";
 import { PostsModule } from './modules/posts/posts.module';
 import * as path from 'path';
+import { Post } from '@/modules/posts/post.model';
 
 const env = process.env;
 
@@ -35,7 +36,7 @@ const env = process.env;
           username: env.POSTGRES_USER,
           password: String(env.POSTGRES_PASSWORD),
           database: env.POSTGRES_DB,
-          models: [User, Role, UserRole, Permission, PermissionRole],
+          models: [User, Role, UserRole, Permission, PermissionRole, Post],
           autoLoadModels: true
       }),
       UsersModule,
