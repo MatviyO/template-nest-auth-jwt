@@ -15,11 +15,11 @@ import { RolesModule } from '@/modules/roles/roles.module';
 import { Permission } from '@/modules/permissions/permission.model';
 import { Role } from '@/modules/roles/role.model';
 import { User } from '@/modules/users/user.model';
-import { JwtModule } from '@nestjs/jwt';
 import {ServeStaticModule} from "@nestjs/serve-static";
 import { PostsModule } from './modules/posts/posts.module';
 import * as path from 'path';
 import { Post } from '@/modules/posts/post.model';
+import { FilesModule } from './files/files.module';
 
 const env = process.env;
 
@@ -45,6 +45,7 @@ const env = process.env;
       RouterModule.register(routes),
       AuthModule,
       PostsModule,
+      FilesModule,
   ],
   controllers: [AuthController],
   providers: [
@@ -57,6 +58,7 @@ const env = process.env;
           useClass: AllExceptionsFilter,
       },
       AuthService,
+
   ],
 })
 export class AppModule {}

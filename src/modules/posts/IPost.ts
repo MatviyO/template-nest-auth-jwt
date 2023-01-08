@@ -11,5 +11,6 @@ export interface IPost {
 export interface IPostCreationAttr {
   title: string;
   content: string;
+  userId: number;
   image: string;
 }
